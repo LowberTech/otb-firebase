@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+        <title>Off The Bench - Event</title>
+        <style> body { display: none; } </style>
+
+    </head>
+    <body id="event">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link btn text-start" aria-current="page" href="main.html" title="Home"><i class="bi bi-house navIcons"></i> Home</a>
+                        </li>
+
+                        <!-- outgoing -->
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-sent-btn2" data-bs-toggle="dropdown" aria-expanded="false" title="Outbox">
+                                    <i class="bi bi-envelope navIcons"><span id="sentCount" class="px-1 d-none text-warning"></span></i> Outbox
+                                </button>
+                                <ul id="notiNav" class="dropdown-menu p-0 w-100" aria-labelledby="dropdown-sent-btn2">
+                                    <li>
+                                        <ul id="sentReq" class="list-group">
+                                            <!-- Dynamically adding with js  -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Inbox-->
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-received-btn2" data-bs-toggle="dropdown" aria-expanded="false" title="Inbox">
+                                    <i class="bi bi-mailbox navIcons"><span id="reqCount" class="px-1 d-none text-warning"></span></i> Inbox
+                                </button>
+                                <ul id="notiNav" class="dropdown-menu p-0 w-100" aria-labelledby="dropdown-received-btn2">
+                                    <li>
+                                        <ul id="recReq" class="list-group">
+                                            <!-- Dynamically adding with js -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-menu-btn-calendar2" data-bs-toggle="dropdown" aria-expanded="false" title="My Events">
+                                    <i class="bi bi-calendar navIcons"></i> My Events
+                                </button>
+                                <ul id="eventNav" class="dropdown-menu custom-list-group p-0 w-100" aria-labelledby="dropdown-menu-btn-calendar2">
+                                    <!-- Dynamically adding with js -->
+                                </ul>
+    
+                            </div>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link btn text-start" href="event.html" title="Add Event"><i class="bi bi-plus-square navIcons"></i> New Event</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav d-flex">
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html" title="Profile"><i class="bi bi-file-person navIcons"></i> Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="logoutBtn" class="nav-link" href="#" title="logoutBtn"><i class="bi bi-power navIcons"></i> Logout</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <!-- LEFT SIDE-->
+                <div class="col-md-2 col-lg-3">
+    
+                </div>
+                <!-- CENTER BODY -->
+                <div id="eventDiv" class="col-md-8 col-lg-6">
+                    <div id="eventDefault" class="row event border border-dark m-1 my-3">
+                        <div class="col-12">
+                            <div class="row eventHeader">
+                                <div class="col-8">
+                                    <h4>Event</h4>
+                                </div>
+                                <div class="col-4">
+                                    <button id="deleteEventBtn" class="btn btn-sm btn-danger m-1 mt-2 d-none" type="button">Cancel Event</button>
+                                </div>
+                            </div>
+                            <p id="eventMessage" class="d-none fs-6 p-0 m-0"></p>
+                            <form class="form-horizontal" method="post" id="eventForm">
+                                <div class="row">
+                                    <div class="col-md-6 my-2">
+                                        <label class="control-label" for="type">Status</label>
+                                        <p id="status" class="p-0 m-0"></p>
+                                    </div>
+                                    <div class="col-md-6 my-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="type">Type</label>
+                                            <select id="type" class="form-select" aria-label="typeSelect" required>
+                                                <option value="onRequest">On Request</option>
+                                                <option value="public">Public</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 my-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="sport">Activity <span class="text-otb">(required)</span></label>
+                                            <input id="sport" class="form-control" title="sport" value="" maxlength="25" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 my-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="level">Level <span class="text-otb">(required)</span></label>
+                                            <select id="level" class="form-select" aria-label="levelSelect" required>
+                                                <option></option>
+                                                <option value="beginner">Beginner</option>
+                                                <option value="casual">Casual</option>
+                                                <option value="experienced">Experienced</option>
+                                                <option value="prefect">Prefect</option>
+                                              </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row`">
+                                    <div class="col-md-12 my-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="description">Description</label>
+                                            <textarea id="description" class="form-control" title="description" type="text-box" maxlength="225" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 my-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="location">Location / Address <span class="text-otb">(required)</span></label>
+                                            <input id="location" class="form-control" title="location" value="" maxlength="75" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- DATE TIMES -->
+                                <div id="dateTimesDiv">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-5 col-md-3 my-3">
+                                        <button type="button" class="btn btn-sm btn-outline-success" onClick="addDateTime()">Add Date</button>
+                                    </div>
+                                    <div class="col-5 offset-2 col-md-4 offset-md-5 my-3">
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onClick="deleteDateTime()">Delete Date</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 my-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="availability">Available <span class="text-otb">(required)</span></label>
+                                            <input id="availability" class="form-control" title="Spots Available" value="" maxlength="2" type="number" step="1" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 my-2">
+                                        <div class="form-group">
+                                            <label class="control-label" for="attending">Attending <span class="text-otb">(required)</span></label>
+                                            <input id="attending" class="form-control" title="attending" value="" maxlength="2" type="number" step="1" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div  class="col-12 my-3">
+                                        <div class="form-group">
+                                            <input id="postBtn" class="btn btn-sm btn-success" type="submit" value="Post" />
+                                            <input id="updateBtn" class="btn btn-sm btn-success" type="submit" value="Update" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                                <!-- MEMBERSHIPS-->
+                                <div class="row my-3">
+                                    <div class="table-responsive">
+                                        <table id="membershipTable" class="table table-sm">
+
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT SIDE -->
+                <div class="col-md-2 col-lg-3">
+                    
+                </div>
+            </div>
+        </div>
+
+        <script src="bundle.js"></script>
+    </body>
+
+</html>
