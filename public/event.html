@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+        <title>Off The Bench - Event</title>
+        <style> body { display: none; } </style>
+        <script>
+            
+            window.googleApi = function(response) {
+                let where = document.getElementById("where");
+
+                var autocomplete = new google.maps.places.Autocomplete(where, {
+                    componentRestrictions: { country: ["us","ca"] },
+                    fields: ["address_components","geometry"],
+                    types: ["address"]
+                });
+
+                where.focus();
+                autocomplete.addListener("place_changed", function() {
+                    let place = autocomplete.getPlace();
+                    console.log(place.geometry.location.lat());
+                });
+            }
+
+        </script>
+
+    </head>
+    <body id="event">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link btn text-start" aria-current="page" href="main.html" title="Home"><i class="bi bi-house navIcons"></i> Home</a>
+                        </li>
+
+                        <!-- outgoing -->
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-sent-btn2" data-bs-toggle="dropdown" aria-expanded="false" title="Outbox">
+                                    <i class="bi bi-envelope navIcons"><span id="sentCount" class="px-1 d-none text-warning"></span></i> Outbox
+                                </button>
+                                <ul id="notiNav" class="dropdown-menu p-0 w-100" aria-labelledby="dropdown-sent-btn2">
+                                    <li>
+                                        <ul id="sentReq" class="list-group">
+                                            <!-- Dynamically adding with js  -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Inbox-->
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-received-btn2" data-bs-toggle="dropdown" aria-expanded="false" title="Inbox">
+                                    <i class="bi bi-mailbox navIcons"><span id="reqCount" class="px-1 d-none text-warning"></span></i> Inbox
+                                </button>
+                                <ul id="notiNav" class="dropdown-menu p-0 w-100" aria-labelledby="dropdown-received-btn2">
+                                    <li>
+                                        <ul id="recReq" class="list-group">
+                                            <!-- Dynamically adding with js -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-menu-btn-calendar2" data-bs-toggle="dropdown" aria-expanded="false" title="My Events">
+                                    <i class="bi bi-calendar navIcons"></i> My Events
+                                </button>
+                                <ul id="eventNav" class="dropdown-menu custom-list-group p-0 w-100" aria-labelledby="dropdown-menu-btn-calendar2">
+                                    <!-- Dynamically adding with js -->
+                                </ul>
+    
+                            </div>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link btn text-start" href="event.html" title="Add Event"><i class="bi bi-plus-square navIcons"></i> New Event</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav d-flex">
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html" title="Profile"><i class="bi bi-file-person navIcons"></i> Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="logoutBtn" class="nav-link" href="#" title="logoutBtn"><i class="bi bi-power navIcons"></i> Logout</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container"> 
+            <div class="row">
+                <!-- LEFT SIDE-->
+                <div class="col-md-2">
+    
+                </div>
+                <!-- CENTER BODY -->
+                <div class="col-md-8">
+                    <div id="newEventDiv" class="shadow-lg rounded mt-5 p-3 d-none">
+                        <h3 class="otbLogo">New Event</h3>
+                        <form id="newEventForm" class="form-horizontal p-2" action="" method="post">
+                            <!-- STEP 1 WHO? -->
+                            <div id="step1">
+                                <div class="row my-3">
+                                    <div class="col-12 text-center my-2">
+                                        <h5 class="form-label" for="who">WHO?</h5>
+                                        <div id="whoHelp" class="form-text">
+                                            1 of 4<br>
+                                            Who can join this event? Everyone or only users you approve?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-8 offset-md-2 text-center my-2">
+                                        <select id="who" class="form-select text-center" aria-label="whoSelect" required>
+                                            <option value="public">Open To Public</option>
+                                            <option value="approval">Approval</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="limitDiv" class="d-none">
+                                    <div class="row my-3">
+                                        <div class="col-12 text-center my-2">
+                                            <h5 class="form-label" for="">APPROVAL LIMIT</h5>
+                                            <div id="whoHelp" class="form-text">Limit how many approval request you can receive.</div>
+                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col-md-4 offset-md-4 text-center my-2">
+                                            <div class="form-group">
+                                                <input id="limit" class="form-control text-center" title="spots available" value="1" maxlength="2" type="number" step="1" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-5">
+                                    <div class="col-6 offset-6 my-2">
+                                        <button id="nextBtn1" class="btn otbBtn-outline btn-lg" type="button" onclick="goNext('step1')">next</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- STEP 2 WHAT? -->
+                            <div id="step2" class="d-none">
+                                <div class="row my-3">
+                                    <div class="col-12 text-center my-2">
+                                        <h5 class="form-label" for="">WHAT?</h5>
+                                        <div id="whatHelp" class="form-text">
+                                            2 of 4<br>
+                                            What activity or sport will be played?<br>
+                                            Careful! Correct spelling will help participants find your event.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-8 offset-md-2 text-center my-2">
+                                        <div class="form-group">
+                                            <input id="what" class="form-control text-center" title="what" value="" maxlength="25" placeholder="sport or activity" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-12 text-center my-2">
+                                        <h5 class="form-label" for="">SKILL LEVEL</h5>
+                                        <div id="levelHelp" class="form-text">
+                                            At what skill level will participants be at?</br><br>
+                                            Open, all skill levels are welcome.<br>
+                                            Novice, those who are new to the sport.</br>
+                                            Experienced, those who have played many times before.</br>
+                                            Professional, those who have played collegiately or professionally.</br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-8 offset-md-2 text-center my-2">
+                                        <select id="skillGroup" class="form-select text-center" aria-label="skillGroupSelect" required>
+                                            <option value="open">Open</option>
+                                            <option value="noviest">Noviest</option>
+                                            <option value="experienced">Experienced</option>
+                                            <option value="professional">Professional</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row my-5">
+                                    <div class="col-6 my-2">
+                                        <button id="backBtn2" class="btn otbBtn-outline btn-lg" type="button" onclick="goBack('step2')">back</button>
+                                    </div>
+                                    <div class="col-6 my-2">
+                                        <button id="nextBtn2" class="btn otbBtn-outline btn-lg" type="button" onclick="goNext('step2')">next</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- STEP 3 WHERE AND WHEN -->
+                            <div id="step3" class="d-none">
+                                <div class="row my-3">
+                                    <div class="col-md-12 text-center my-2">
+                                        <h5 class="form-label" for="">WHERE?</h5>
+                                        <div id="whereHelp" class="form-text">
+                                            3 of 4<br>
+                                            Where will participants meet?<br>
+                                            Address will be used upon check in.<br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-8 offset-md-2 my-2">
+                                        <div class="form-group text-center">
+                                            <input id="where" class="form-control text-center" title="where" value="" maxlength="75" placeholder="Address" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row my-3">
+                                    <div class="col-12 text-center my-2">
+                                        <h5 class="form-label" for="">WHEN?</h5>
+                                        <div id="whenHelp" class="form-text">
+                                            What day and at what time should participants meet?<br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="newDateTimesDiv">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-3 my-3">
+                                        <button type="button" class="btn btn-sm btn-outline-success" onclick="addDateTime()">Add Date</button>
+                                    </div>
+                                    <div class="col-6 col-md-3 offset-md-6 my-3">
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteDateTime()">Delete Date</button>
+                                    </div>
+                                </div>
+
+                                <div class="row my-5">
+                                    <div class="col-6 my-2">
+                                        <button id="backBtn3" class="btn otbBtn-outline btn-lg" type="button" onclick="goBack('step3')">back</button>
+                                    </div>
+                                    <div class="col-6 my-2">
+                                        <button id="nextBtn3" class="btn otbBtn-outline btn-lg" type="button" onclick="goNext('step3')">next</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- STEP 4 SUBMIT -->
+                            <div id="step4" class="d-none">
+                                <div class="row my-3">
+                                    <div class="col-12 text-center my-2">
+                                        <h5 class="form-label" for="">ADDITIONAL DETAILS?</h5>
+                                        <div id="detailsHelp" class="form-text">
+                                            4 of 4<br>
+                                            Optionally, are there any details you'd like to share with participants?<br>
+                                            Keep in mind any cost or direction details that may need to be shared.<br>
+                                            225 characters allowed.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md-12 my-2">
+                                        <div class="form-group">
+                                            <textarea id="details" class="form-control" title="details" type="text-box" maxlength="225" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row my-5">
+                                    <div class="col-6 my-2">
+                                        <button id="backBtn4" class="btn otbBtn-outline btn-lg" type="button" onclick="goBack('step4')">back</button>
+                                    </div>
+                                    <div class="col-6 my-2">
+                                        <input id="userType" type="hidden" title="userType" name="userType" value= "user">
+                                        <input id="submitBtn" class="btn otbBtn btn-lg" type="submit" value="create">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- VIEW EVENT -->
+                    <div id="eventDiv" class="shadow-lg rounded mt-5 p-3 d-none">
+                        <div id="eventDefault" class="row my-3">
+                            <div class="col-12">
+                                <div class="row eventHeader">
+                                    <div class="col-12">
+                                        <h3 class="otbLogo">VIEW EVENT</h3>
+                                    </div>
+                                </div>
+                                <p id="eventMessage" class="d-none fs-6 p-0 m-0"></p>
+                                <form id="eventForm" class="form-horizontal" method="post">
+                                    <!-- VISIBILITY -->
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <h5 id="status" class="form-label text-center" for="status"></h5>
+                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <div class="form-group">
+                                                <h5 class="form-label" for="type">Visibility</h5>
+                                                <div class="form-text">
+                                                    Who can join this event? Everyone or only users you approve?
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 my-2">
+                                            <div class="form-group">
+                                                <select id="type" class="form-select" aria-label="typeSelect" required>
+                                                    <option value="public">Open To Public</option>
+                                                    <option value="approval">Approval</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- REQUEST LIMIT -->
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <h5 class="form-label" for="availability">Approval Limit</h5>
+                                            <div class="form-text">Limit how many approval request you can receive.</div>
+                                        </div>
+                                        <div class="col-md-6 my-2">
+                                            <div class="form-group">
+                                                <input id="availability" class="form-control" title="Spots Available" value="" maxlength="2" type="number" step="1" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ACTIVITY OR SPORT -->
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <h5 class="form-label" for="">Sport or Activity</h5>
+                                            <div class="form-text">
+                                                What activity or sport will be played?<br>
+                                                Careful! Correct spelling will help participants find your event.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 my-2">
+                                            <div class="form-group">
+                                                <input id="sport" class="form-control" title="sport" value="" maxlength="25" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- SKILL LEVEL -->
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <h5 class="form-label" for="">SKILL LEVEL</h5>
+                                            <div class="form-text">
+                                                At what skill level will participants be at?</br><br>
+                                                Open, all skill levels are welcome.<br>
+                                                Novice, those who are new to the sport.</br>
+                                                Experienced, those who have played many times before.</br>
+                                                Professional, those who have played collegiately or professionally.</br>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 my-2">
+                                            <div class="form-group">
+                                                <select id="level" class="form-select" aria-label="levelSelect" required>
+                                                    <option value="open">Open</option>
+                                                    <option value="noviest">Noviest</option>
+                                                    <option value="experienced">Experienced</option>
+                                                    <option value="professional">Professional</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+
+                                    <!-- LOCATION OR ADDRESS -->
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <h5 class="form-label" for="location">Address</h5>
+                                            <div class="form-text">
+                                                Where will participants meet?<br>
+                                                Address will be used upon check in.<br>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-2">
+                                            <div class="form-group">
+                                                <input id="location" class="form-control" title="location" value="" maxlength="75" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- DATE TIMES -->
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <h5 class="form-label" for="dateTime">Date and Time</h5>
+                                            <div class="form-text">What day and at what time should participants meet?</div>
+                                        </div>
+                                    </div>
+                                    <div id="dateTimesDiv" class="row my-3">
+
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col-5 col-md-3 my-3">
+                                            <button type="button" class="btn btn-sm btn-outline-success" onClick="addDateTime()">Add Date</button>
+                                        </div>
+                                        <div class="col-5 offset-2 col-md-4 offset-md-5 my-3">
+                                            <button type="button" class="btn btn-sm btn-outline-danger" onClick="deleteDateTime()">Delete Date</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- DETAILS / DESCRIPTION -->
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <h5 class="form-label" for="">Description</h5>
+                                            <div class="form-text">
+                                                Optionally, are there any details you'd like to share with participants?<br>
+                                                Keep in mind any cost or direction details that may need to be shared.<br>
+                                                225 characters allowed.
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-2">
+                                            <div class="form-group">
+                                                <textarea id="description" class="form-control" title="description" type="text-box" maxlength="225" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row my-5">
+                                        <div  class="col-md-6 my-2">
+                                            <div class="form-group">
+                                                <input id="postBtn" class="btn btn-lg btn-success" type="submit" value="Post" />
+                                                <input id="updateBtn" class="btn btn-lg btn-success" type="submit" value="Update" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row my-5">
+                                        <div class="col-md-6 my-2">
+                                            <button id="deleteEventBtn" class="btn btn-lg btn-danger d-none" type="button">Cancel Event</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                    <!-- MEMBERSHIPS-->
+                                    <div class="row my-3">
+                                        <div class="table-responsive">
+                                            <table id="membershipTable" class="table table-sm">
+
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE -->
+                <div class="col-md-2">
+                    
+                </div>
+            </div>
+        </div>
+        <script 
+            type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIiauOKQtUx4FRtZELr5jYIT8GrNaFhcI&libraries=places&callback=googleApi">
+        </script>
+        <script src="bundle.js"></script>
+    </body>
+
+</html>

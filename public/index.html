@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+        <meta name="description" content="Off The Bench is a social media website that connects willing participants to group activities.">
+        <meta name="keywords" content="offthebench, off, the, bench, find, search, social, games, sports, activity, community, open">
+        <meta name="author" content="LowberTech">
+
+
+        <title>Off The Bench</title>
+
+        <style> body { display: none; } </style>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-3CSCQWS4NP"></script>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-3CSCQWS4NP');
+        </script>
+        
+    </head>
+    <body id="index">
+        <div id="content" class="container">  
+            <div class="row my-md-5">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="row mt-md-5">
+                        <div class="col-md-6 my-2">
+                            <div class="shadow-lg rounded">
+                                <img src="../img/logo.jpeg" class="img-fluid rounded" alt="off the bench logo" height="750px">
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex my-2">
+                            <div class="shadow-lg rounded w-100 p-3 align-middle">
+                                <h3 class="otbLogo">Off The Bench</h3>
+                                <!-- LOG IN -->
+                                <form id="login" class="form-horizontal p-2" action="" method="post">
+                                    <div id="loginMessage" class="form-text"></div>
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <div class="form-group">
+                                                <input id="email" class="form-control text-center" title="email" name="email" type="text" maxlength="75" autocomplete="email" placeholder="email address" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-2">
+                                            <div class="form-group">
+                                                <input id="ps" class="form-control text-center" title="ps" name="ps" type="password" maxlength="15" autocomplete="current-password" placeholder="password" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <div class="form-group">
+                                                <input class="btn otbBtn" type="submit" value="Log in" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 my-2">
+                                            <button type="button" class="btn otbBtn-outline" onclick="showCreate()">Create Account</button>
+                                        </div>
+                                        <div class="col-md-6 my-2">
+                                            <button type="button" class="btn otbBtn-outline" onclick="showReset()">Forgot Password</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- SIGN UP -->
+                                <form id="signup" class="form-horizontal d-none p-2" action="" method="post">
+                                    <!-- USERNAME -->
+                                    <div id="step1">
+                                        <div class="row align-middle my-3">
+                                            <div class="col-12 text-center my-2">
+                                                    <h5 class="form-label" for="un">PICK A USERNAME</h5>
+                                                    <div id="unHelp" class="form-text">
+                                                        This unique username will be used as your alias.</br>
+                                                        Deselect to check username.
+                                                    </div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <input id="un" class="form-control text-center" type="text" aria-describedby="unHelp" aria-errormessage="unError" autocomplete="username" placeholder="username" maxlength="30">
+                                                <div id="unError" class="form-text text-center text-danger d-none mb-3"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-3">
+                                            <div class="col-6 my-2">
+                                                <button type="button" class="btn otbBtn-outline" type="button" onclick="showLogin()">Log in</button>
+                                            </div>
+                                            <div class="col-6 my-2">
+                                                <button id="nextBtn1" class="btn otbBtn-outline disabled" type="button" onclick="goNext('step1')">next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+
+                                    <!-- DATE OF BIRTH -->
+                                    <div id="step2" class="d-none">
+                                        <div class="row my-3">
+                                            <div class="col-12 text-center my-2">
+                                                <h5 class="form-label" for="dob">DATE OF BIRTH</h5>
+                                                <div id="dobHelp" class="form-text">You must be 16 years or older to register.</div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <input id="dob" class="form-control text-center" title="dob" name="dob" type="date" maxlength="10" autocomplete="bday" aria-describedby="dobHelp" aria-errormessage="dobError">
+                                                <div id="dobError" class="form-text text-center text-danger d-none mb-3"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-3">
+                                            <div class="col-6 my-2">
+                                                <button id="backBtn2" class="btn otbBtn-outline" type="button" onclick="goBack('step2')">back</button>
+                                            </div>
+                                            <div class="col-6 my-2">
+                                                <button id="nextBtn2" class="btn otbBtn-outline disabled" type="button" onclick="goNext('step2')">next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- LOCATION -->
+                                    <div id="step3" class="d-none">
+                                        <div class="row my-3">
+                                            <div class="col-12 text-center my-2">
+                                                <h5 class="form-label" for="zip">ZIP CODE</h5>
+                                                <div id="zipHelp" class="form-text">Events will be identified by your 5 digit zip code.</div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <input id="zip" class="form-control text-center" title="zip" name="zip" type="text" maxlength="5" autocomplete="bday" aria-describedby="dobHelp">
+                                                <div id="zipError" class="form-text text-center text-danger d-none mb-3"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row my-3">
+                                            <div class="col-6 my-2">
+                                                <button id="backBtn3" class="btn otbBtn-outline" type="button" onclick="goBack('step3')">back</button>
+                                            </div>
+                                            <div class="col-6 my-2">
+                                                <button id="nextBtn3" class="btn otbBtn-outline disabled" type="button" onclick="goNext('step3')">next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- CREDENTIALS -->
+                                    <div id="step4" class="d-none">
+                                        <div class="row my-3">
+                                            <div class="col-12 text-center my-2">
+                                                <h5 class="form-label" for="cred">ACCOUNT CREDENTIALS</h5>
+                                                <div id="credHelp" class="form-text mb-3">Below credentials will be used to access Off The Bench</div>
+                                                <div id="credError" class="form-text text-danger d-none mb-3"></div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <input id="emailAddress" class="form-control text-center" type="email" aria-describedby="credHelp" aria-errormessage="emailError" autocomplete="email" placeholder="email address" maxlength="75">
+                                                <div id="emailError" class="form-text text-center text-danger d-none mb-3"></div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <input id="pwd" class="form-control text-center" type="password" aria-describedby="credHelp" aria-errormessage="pwdError" placeholder="password" autocomplete="new-password">
+                                                <div id="pwdError" class="form-text text-center text-danger d-none mb-3"></div>
+                                            </div>
+                                            <div class="col-12 my-2">
+                                                <input id="con" class="form-control text-center" type="password" aria-describedby="credHelp" aria-errormessage="conError" placeholder="confirm" autocomplete="new-password">
+                                                <div id="conError" class="form-text text-center text-danger d-none mb-3"></div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row my-3">
+                                            <div class="col-6 my-2">
+                                                <button id="backBtn4" class="btn otbBtn-outline" type="button" onclick="goBack('step4')">back</button>
+                                            </div>
+                                            <div class="col-6 my-2">
+                                                <input id="userType" type="hidden" title="userType" name="userType" value= "user">
+                                                <input id="submitBtn" class="btn otbBtn disabled" type="submit" value="create">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- FORGOT/RESET PASSWORD -->
+                                <form id="reset" class="form-horizontal d-none p-2" action="" method="post">
+                                    <span id="resetMessage" class="text-danger"></span>
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <div class="form-group text-center">
+                                                <label class="form-label" for="emailReset">PROVIDE EMAIL ADDRESS</label>
+                                                <div id="emailResetHelp" class="form-text mb-3">An email containing reset instruction will be sent.</div>
+                                                <input id="emailReset" class="form-control text-center" title="emailReset" name="emailReset" type="text" placeholder="email address" maxlength="75" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row my-3">
+                                        <div class="col-12 my-2">
+                                            <div class="form-group">
+                                                <input class="btn otbBtn" type="submit" value="Send Reset Email" />
+                                            </div>
+                                        </div>
+                                        <div class="col-12 my-2">
+                                            <button type="button" class="btn otbBtn-outline" onclick="showLogin()">Log in</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+            <!-- <div class="row my-5">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <P>
+                                Connect with potential substitutes, teammates and participants for your next league or recreational activity.
+                            </P>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12"><h4>Host looking for participants</h4></div>
+                        <div class="col-12 col-md-4 my-1">
+                            <div class="bubble">
+                                <p class="tinyText">List event</p>
+                            </div>
+                        </div>                            
+                        <div class="col-12 col-md-4 my-1">
+                            <div class="bubble">
+                                <p class="tinyText">Receive join requests</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 my-1">
+                            <div class="bubble">
+                                <p class="tinyText">Have fun!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12"><h4>Participants looking for activity</h4></div>
+                        <div class="col-12 col-md-4 my-1">
+                            <div class="bubble">
+                                <p class="tinyText">Find event</p>
+                            </div>
+                        </div>                            
+                        <div class="col-12 col-md-4 my-1">
+                            <div class="bubble">
+                                <p class="tinyText">Send join request</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 my-1">
+                            <div class="bubble">
+                                <p class="tinyText">Have fun!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+
+            <!-- ADVERTISMENTS -->
+            <div class="row my-5">
+                <div class="col-md-4 offset-md-4">
+                    <h1 class="otbLogo">Presented by</h1>
+                </div>
+            </div>
+
+            <div class="row my-5">
+                <div class="col-md-6 col-lg-3 p-3">
+                    <div class="border text-center adImgDiv">
+                        <!-- <a href="" target=""><img src="" alt="ad-one" width="100%" height="100%"></a> -->
+                        <!-- <a class="adAHref" href="" target="">
+                            <h3></h3>
+                        </a> -->
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 p-3">
+                    <div class="border text-center adImgDiv">
+                    <!-- <a class="adAHref" href="" target="">
+                        <h3></h3>
+                    </a> -->
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 p-3">
+                    <div class="border text-center adImgDiv">
+                        <!-- <a class="adAHref" href="" target="">
+                            <h3></h3>
+                        </a> -->
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 p-3">
+                    <div class="border text-center adImgDiv">
+                        <!-- <a class="adAHref" href="" target="">
+                            <h3></h3>
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </body>
+    <script src="bundle.js"></script>
+
+</html>

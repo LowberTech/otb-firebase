@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6185080274617734" crossorigin="anonymous"></script>
+        
+        <title>Off The Bench</title>
+
+        <style> body { display: none; } </style>
+    </head>
+    <body id="main">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link btn text-start" aria-current="page" href="main.html" title="Home"><i class="bi bi-house navIcons"></i> Home</a>
+                        </li>
+
+                        <!-- outgoing -->
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-sent-btn2" data-bs-toggle="dropdown" aria-expanded="false" title="Outbox">
+                                    <i class="bi bi-envelope navIcons"><span id="sentCount" class="px-1 d-none text-warning"></span></i> Outbox
+                                </button>
+                                <ul id="notiNav" class="dropdown-menu p-0 w-100" aria-labelledby="dropdown-sent-btn2">
+                                    <li>
+                                        <ul id="sentReq" class="list-group">
+                                            <!-- Dynamically adding with js  -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Inbox-->
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-received-btn2" data-bs-toggle="dropdown" aria-expanded="false" title="Inbox">
+                                    <i class="bi bi-mailbox navIcons"><span id="reqCount" class="px-1 d-none text-warning"></span></i> Inbox
+                                </button>
+                                <ul id="notiNav" class="dropdown-menu p-0 w-100" aria-labelledby="dropdown-received-btn2">
+                                    <li>
+                                        <ul id="recReq" class="list-group">
+                                            <!-- Dynamically adding with js -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="nav-link btn data-toggle text-start m-0" type="button" id="dropdown-menu-btn-calendar2" data-bs-toggle="dropdown" aria-expanded="false" title="My Events">
+                                    <i class="bi bi-calendar navIcons"></i> My Events
+                                </button>
+                                <ul id="eventNav" class="dropdown-menu custom-list-group p-0 w-100" aria-labelledby="dropdown-menu-btn-calendar2">
+                                    <!-- Dynamically adding with js -->
+                                </ul>
+    
+                            </div>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link btn text-start" href="event.html" title="Add Event"><i class="bi bi-plus-square navIcons"></i> New Event</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav d-flex">
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html" title="Profile"><i class="bi bi-file-person navIcons"></i> Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="logoutBtn" class="nav-link" href="#" title="logoutBtn"><i class="bi bi-power navIcons"></i> Logout</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center my-3">
+                    <h1 class="otbLogo p-5">Off The Bench</h1>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- LEFT SIDE-->
+                <div class="col-md-2 col-lg-3">
+
+                </div>
+
+                <!-- CENTER BODY -->
+                <div class="col-md-8 col-lg-6">
+                    <!-- Bench Wheel-->
+                    <div id="benchDiv" class="d-flex flex-row flex-nowrap overflow-auto">
+                        <!-- adding dynamically -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <input id="search" class="form-control my-3" placeholder="search..." oninput="searchEvents()"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 overflow-auto">
+                            <div id="eventsDiv">
+                                <p id="eventsMessage" class="d-none"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE -->
+                <div class="col-md-2 col-lg-3">
+                    
+                    <div class="row">
+                        <div class="col-10 offset-2">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="bundle.js"></script>
+    </body>
+
+</html>
